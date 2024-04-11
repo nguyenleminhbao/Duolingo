@@ -6,7 +6,7 @@ import { InfinityIcon } from "lucide-react";
 
 type Props = {
   activeCourse: {
-    imageSrc: string;
+    image_src: string;
     title: string;
   };
   hearts: number;
@@ -25,7 +25,7 @@ export const UserProgress = ({
       <Link href="/courses">
         <Button variant="ghost">
           <Image
-            src={activeCourse.imageSrc}
+            src={activeCourse.image_src}
             alt={activeCourse.title}
             className="rounded-md border"
             width={32}

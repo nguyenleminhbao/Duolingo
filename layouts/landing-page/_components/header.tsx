@@ -1,17 +1,24 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-// import {
-//   ClerkLoaded,
-//   ClerkLoading,
-//   SignIn,
-//   SignInButton,
-//   SignedIn,
-//   SignedOut,
-//   UserButton,
-// } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useAuth,
+} from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export const Header = () => {
+  const { userId } = useAuth();
+  useEffect(() => {
+    if (!userId) localStorage && localStorage.removeItem("accessToken");
+  }, [userId]);
   return (
     <header className="h-20 w-full border-b-2 px-4 border-slate-200">
       <div className="lg:max-w-screen-lg mx-auto flex items-center justify-between h-full ">
@@ -21,7 +28,7 @@ export const Header = () => {
             Duolingo
           </h1>
         </div>
-        {/* <ClerkLoading>
+        <ClerkLoading>
           <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
         </ClerkLoading>
         <ClerkLoaded>
@@ -31,7 +38,7 @@ export const Header = () => {
           <SignedOut>
             <SignInButton
               mode="modal"
-              afterSignInUrl="/learn"
+              afterSignInUrl="/"
               afterSignUpUrl="/learn"
             >
               <Button variant="ghost" size="lg">
@@ -39,7 +46,7 @@ export const Header = () => {
               </Button>
             </SignInButton>
           </SignedOut>
-        </ClerkLoaded> */}
+        </ClerkLoaded>
       </div>
     </header>
   );

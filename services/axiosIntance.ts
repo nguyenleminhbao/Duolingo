@@ -1,3 +1,4 @@
+import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -7,8 +8,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (config) => {
     config.headers.Authorization = `Bearer ${
-      localStorage && localStorage.getItem("access_token")
+      localStorage && localStorage.getItem("accessToken")
     }`;
+
     return config;
   },
   (error) => {

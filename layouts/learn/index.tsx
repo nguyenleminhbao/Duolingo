@@ -1,31 +1,48 @@
+"use client";
+
 import StickyWrapper from "@/components/layouts/web/sticky-wrapper";
-import FeedWrapper from "@/components/ui/feed-wrapper";
-import { UserProgress } from "@/components/ui/user-progress";
 import Header from "./_components/header";
+import useAsync from "@/hooks/use-async";
+import { getUserProgress } from "@/services/user-progress/get";
+import { getUnits } from "@/services/units/get";
+import { FeedWrapper, UserProgress, Loading } from "@/components/ui";
+import UnitsBody from "./units-body";
+import { getCourseProgress, getLessonPercentage } from "@/services/courses/get";
+import { ILesson } from "@/interfaces/courses";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LearnLayout() {
-  return (
-    <div className="flex flex-row-reverse gap-[48px] px-6">
-      <StickyWrapper>
-        <UserProgress
-          activeCourse={{ title: "Spanish", imageSrc: "/es.svg" }}
-          hearts={5}
-          points={100}
-          hasActiveSubscription={false}
-        />
-      </StickyWrapper>
-      <FeedWrapper>
-        <Header title="Spanish" />
-        <div className="w-full flex flex-col space-y-3">
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
+  const router = useRouter();
+  const { data: userProgress } = useAsync(() => getUserProgress());
+  const { data: units } = useAsync(() => getUnits());
+  const { data: courseProgress } = useAsync(() => getCourseProgress());
+  const { data: lessonPercentage } = useAsync(() => getLessonPercentage());
 
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
-          <div className=" bg-pink-500 h-[500px] w-full"></div>
+  return (
+    <>
+      {userProgress ? (
+        <div className="flex flex-row-reverse gap-[48px] px-6">
+          <StickyWrapper>
+            <UserProgress
+              activeCourse={userProgress?.course}
+              hearts={userProgress?.hearts}
+              points={userProgress?.points}
+              hasActiveSubscription={false}
+            />
+          </StickyWrapper>
+          <FeedWrapper>
+            <Header title={userProgress?.course?.title} />
+            <UnitsBody
+              units={units ?? []}
+              activeLesson={courseProgress?.activeLesson as ILesson}
+              activeLessonPercentage={lessonPercentage ?? 0}
+            />
+          </FeedWrapper>
         </div>
-      </FeedWrapper>
-    </div>
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 }
