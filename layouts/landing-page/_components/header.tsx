@@ -5,6 +5,7 @@ import {
   ClerkLoaded,
   ClerkLoading,
   SignInButton,
+  SignOutButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -39,7 +40,7 @@ export const Header = () => {
             <SignInButton
               mode="modal"
               afterSignInUrl="/"
-              afterSignUpUrl="/learn"
+              afterSignUpUrl="/courses"
             >
               <Button variant="ghost" size="lg">
                 Login

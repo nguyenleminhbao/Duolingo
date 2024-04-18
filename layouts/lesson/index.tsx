@@ -18,21 +18,21 @@ export default function LessonLayout() {
       ) /
         Number(lessons?.challenges.length)) *
       100;
+
     setPercentage(percentage);
   }, [lessons]);
-  console.log(initalPercentage);
 
   return (
-    <div>
+    <>
       {lessons && (
         <Quiz
-          initialPercentage={initalPercentage}
+          initialPercentage={initalPercentage ?? 0}
           initialLessonId={lessons?.id}
           initialHearts={Number(userProgress?.hearts)}
           initialChallenges={lessons.challenges}
           userSubscription={null}
         />
       )}
-    </div>
+    </>
   );
 }

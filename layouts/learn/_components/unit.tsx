@@ -10,7 +10,7 @@ type Props = {
   description: string;
   title: string;
   lessons: ILesson[];
-  activeLesson: ILesson | null;
+  activeLesson: ILesson | undefined;
   activeLessonPercentage: number;
 };
 

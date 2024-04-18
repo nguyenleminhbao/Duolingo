@@ -1,4 +1,3 @@
-import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -10,11 +9,22 @@ axiosInstance.interceptors.request.use(
     config.headers.Authorization = `Bearer ${
       localStorage && localStorage.getItem("accessToken")
     }`;
-
     return config;
   },
   (error) => {
     Promise.reject(error);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log(error?.response);
+    if (error?.response?.status === 401) {
+      window.location.href = "/";
+    } else if (error?.response?.status === 403) {
+      window.location.href = "/forbidden";
+    }
   }
 );
 

@@ -19,3 +19,15 @@ export const updateUserProgress = async (updateData: UpdateUserProgress) => {
     throw err;
   }
 };
+
+export const reduceHearts = async (challenge_id: number) => {
+  try {
+    const { data, status } = await axiosInstance.post(
+      "/user-progress/reduce-hearts",
+      challenge_id
+    );
+    return returnData<string>(data);
+  } catch (err) {
+    throw err;
+  }
+};

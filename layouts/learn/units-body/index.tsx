@@ -5,7 +5,7 @@ import { Unit } from "../_components/unit";
 
 type Props = {
   units: IUnit[];
-  activeLesson: ILesson;
+  activeLesson: ILesson | undefined;
   activeLessonPercentage: number;
 };
 

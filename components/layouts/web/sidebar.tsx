@@ -12,14 +12,17 @@ export const Sidebar = ({ className }: Props) => {
     <div
       className={`flex bg-white h-full lg:!w-[256px] lg:fixed left-0 top-0 px-4 border-r-2 flex-col ${className}`}
     >
-      <Link href="/learn">
-        <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
+      <div>
+        <Link
+          href={"/"}
+          className="pt-8 pl-4 pb-7 flex items-center gap-x-3 cursor-pointer"
+        >
           <Image src="/mascot.svg" alt="mascot" height={40} width={40} />
           <h1 className="text-2xl text-green-600 tracking-wide font-bold">
             Duolingo
           </h1>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="flex flex-col gap-y-2 flex-1 ">
         <SidebarItem label="Learn" href={"/learn"} iconSrc="/learn.svg" />
         <SidebarItem

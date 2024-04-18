@@ -1,6 +1,7 @@
 import { ICourse, ICourseProgress } from "@/interfaces/courses";
 import axiosInstance from "../axiosIntance";
 import { returnData } from "../return";
+import { IUserProgress } from "@/interfaces/user-progress";
 
 export const getAllCourses = async () => {
   try {
@@ -34,7 +35,16 @@ export const getLessonPercentage = async () => {
     const { data, status } = await axiosInstance.get(
       "/courses/get-lesson-percentage"
     );
-    return returnData<number>(data);
+    return returnData<{ percentage: number }>(data);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getTopTenUsers = async () => {
+  try {
+    const { data } = await axiosInstance.get("/courses/get-top-users");
+    return returnData<IUserProgress[]>(data);
   } catch (err) {
     throw err;
   }

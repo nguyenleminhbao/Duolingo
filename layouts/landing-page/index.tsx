@@ -51,7 +51,7 @@ export default function LandingLayout() {
               <SignUpButton
                 mode="modal"
                 afterSignInUrl="/"
-                afterSignUpUrl="/learn"
+                afterSignUpUrl="/courses"
               >
                 <Button variant="secondary" size="lg">
                   Get started
@@ -60,7 +60,7 @@ export default function LandingLayout() {
               <SignInButton
                 mode="modal"
                 afterSignInUrl="/"
-                afterSignUpUrl="/learn"
+                afterSignUpUrl="/courses"
               >
                 <Button variant="primaryOutline" size="lg">
                   I already have an account
@@ -69,7 +69,7 @@ export default function LandingLayout() {
             </SignedOut>
             <SignedIn>
               <Button variant="secondary" className="w-full" asChild>
-                <Link href="/learn">Continue Learning</Link>
+                <Link href="/courses">Continue Courses</Link>
               </Button>
             </SignedIn>
           </ClerkLoaded>

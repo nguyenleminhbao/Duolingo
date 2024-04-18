@@ -28,12 +28,17 @@ export interface ILesson {
 export interface IChallenge {
   id: number;
   lesson_id: number;
-  type: string;
+  type: ChallengeType;
   question: string;
   order: number;
   challenge_progress: any[];
   completed?: boolean;
   challenge_options: IChallengeOption[];
+}
+
+export enum ChallengeType {
+  SELECT = "SELECT",
+  ASSIST = "ASSIST",
 }
 
 export interface IChallengeOption {

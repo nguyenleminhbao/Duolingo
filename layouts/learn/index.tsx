@@ -11,6 +11,8 @@ import { getCourseProgress, getLessonPercentage } from "@/services/courses/get";
 import { ILesson } from "@/interfaces/courses";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Promo } from "@/components/ui/promo";
+import { Quests } from "@/components/ui/quests";
 
 export default function LearnLayout() {
   const router = useRouter();
@@ -30,13 +32,15 @@ export default function LearnLayout() {
               points={userProgress?.points}
               hasActiveSubscription={false}
             />
+            {true && <Promo />}
+            <Quests points={userProgress.points} />
           </StickyWrapper>
           <FeedWrapper>
             <Header title={userProgress?.course?.title} />
             <UnitsBody
               units={units ?? []}
               activeLesson={courseProgress?.activeLesson as ILesson}
-              activeLessonPercentage={lessonPercentage ?? 0}
+              activeLessonPercentage={lessonPercentage?.percentage ?? 0}
             />
           </FeedWrapper>
         </div>
