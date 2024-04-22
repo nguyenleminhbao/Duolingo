@@ -13,3 +13,19 @@ export const login = async (userId: string) => {
     throw err;
   }
 };
+
+export const refreshTokenFunc = async(refreshToken: string)=>{
+  try{
+    const {data, status} = await axiosInstance.post("/auth/refresh-token", {
+      refreshToken
+    })
+    return returnData<{
+      accessToken: string,
+      refreshToken: string
+    }>(data)
+  }
+  catch(err){
+    throw err;
+  }
+}
+

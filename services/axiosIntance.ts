@@ -1,4 +1,6 @@
+
 import axios from "axios";
+import {  refreshTokenFunc } from "./auth/post";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_BACKEND_URL,
@@ -17,12 +19,25 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.log(error?.response);
-    if (error?.response?.status === 401) {
-      window.location.href = "/";
-    } else if (error?.response?.status === 403) {
+  async(response) =>{
+    return response
+  } ,
+  async(error) => {
+    if (error?.response?.status == 401) {
+      const config = error?.response?.config;
+      const token = localStorage && localStorage?.getItem("refreshToken");
+
+      const  data = await refreshTokenFunc(token as string);
+      if (data) {
+        localStorage.setItem("accessToken", data?.accessToken as string);
+        localStorage.setItem("refreshToken", data?.refreshToken as string);
+        config.headers.Authorization = `Bearer ${
+          localStorage && localStorage.getItem("accessToken")
+        }`;
+        return axiosInstance(config);
+      }
+     }
+    else if (error?.response?.status === 403) {
       window.location.href = "/forbidden";
     }
   }

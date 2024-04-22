@@ -18,7 +18,10 @@ import { useEffect } from "react";
 export const Header = () => {
   const { userId } = useAuth();
   useEffect(() => {
-    if (!userId) localStorage && localStorage.removeItem("accessToken");
+    if (!userId) {
+      localStorage && localStorage.removeItem("accessToken");
+      localStorage && localStorage.removeItem("refreshToken");
+    } 
   }, [userId]);
   return (
     <header className="h-20 w-full border-b-2 px-4 border-slate-200">

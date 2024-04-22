@@ -29,6 +29,7 @@ export default function LandingLayout() {
       runLogin(() => login(userId));
       if (loginData) {
         localStorage.setItem("accessToken", loginData?.accessToken as string);
+        localStorage.setItem("refreshToken", loginData?.refreshToken as string);
       }
     }
   }, [loginData]);

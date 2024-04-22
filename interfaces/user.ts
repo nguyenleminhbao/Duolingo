@@ -6,4 +6,5 @@ export interface IUser {
   address?: string;
   avatar: string;
   accessToken?: string;
+  refreshToken?: string;
 }
